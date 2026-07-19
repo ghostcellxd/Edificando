@@ -1,0 +1,12 @@
+{
+  "appId": "org.edificando.sobrelaroca",
+  "appName": "Edificando Sobre La Roca",
+  "webDir": "www",
+  "server": {
+    "androidScheme": "https",
+    "cleartext": true
+  },
+  "android": {
+    "backgroundColor": "#14100B"
+  }
+}

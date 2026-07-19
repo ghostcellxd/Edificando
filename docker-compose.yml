@@ -1,0 +1,31 @@
+services:
+  stream:
+    image: alfg/nginx-rtmp:latest      # nginx + rtmp module + ffmpeg
+    container_name: edificando-stream
+    restart: unless-stopped
+    ports:
+      - "1935:1935"                    # OBS ingest (RTMP)
+      - "8080:8080"                    # HLS + VOD + API/WS + app
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./scripts/postprocess.sh:/scripts/postprocess.sh:ro
+      - ./www:/www:ro
+      - recordings:/recordings         # shared with the api service
+
+  api:
+    image: node:20-alpine
+    container_name: edificando-api
+    restart: unless-stopped
+    working_dir: /app
+    command: sh -c "npm install --omit=dev && node server.js"
+    environment:
+      PORT: "3000"
+      SECRET_KEY: "${SECRET_KEY:-cambia-esta-clave}"   # set in a .env file
+      RECORDINGS_DIR: "/recordings/vod"
+      PUBLIC_BASE: "/vod"
+    volumes:
+      - ./server:/app
+      - recordings:/recordings
+
+volumes:
+  recordings:

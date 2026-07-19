@@ -1,0 +1,17 @@
+{
+  "name": "edificando-sobre-la-roca",
+  "version": "1.0.0",
+  "description": "Church livestream app — live video/audio, private comments, public recordings archive",
+  "scripts": {
+    "add:android": "cap add android",
+    "sync": "cap sync android",
+    "open": "cap open android"
+  },
+  "dependencies": {
+    "@capacitor/android": "^6.2.1",
+    "@capacitor/core": "^6.1.2"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^6.1.2"
+  }
+}
